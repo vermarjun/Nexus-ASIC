@@ -1,11 +1,3 @@
-function Button(props){
-  return (
-    <button className="rounded-2xl text-md text-black w-14 bg-blue-400 border-black border-3 hover:bg-blue-500 hover:text-lg">
-      <p className="">{props.year}</p>
-    </button>
-  )
-}
-
 function Session(){
   const years = [0, 1, 2, 3, 4, 5, 6];
   return (

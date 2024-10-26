@@ -67,7 +67,7 @@ function Navbar({setTab, currentTab}){
                 </a>
             </div>
         </div>
-        <div className={`sm:w-1/6 absolute bottom-14 justify-center w-full space-x-4 items-center sm:hidden ${(currentTab=="home")?"flex":"hidden"}`}>
+        <div className={`z-50 sm:w-1/6 absolute bottom-14 justify-center w-full space-x-4 items-center sm:hidden ${(currentTab=="home")?"flex":"hidden"}`}>
             <a href='https://www.instagram.com/nexus.asic/' target='_blank'>
                 <img src={instaSvg} className='sm:h-7 h-10' alt="" />
             </a>
