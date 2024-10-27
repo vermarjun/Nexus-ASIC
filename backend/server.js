@@ -1,15 +1,16 @@
 import express from "express";
 import { mongoose } from "mongoose";
 import jwt from "jsonwebtoken"
-import { MemberModel, EventModel, AdminModel, CoordinatorModel} from "./db.js"
+import { MemberModel, EventModel, AdminModel, CoordinatorModel, ContactModel} from "./db.js"
 import dotenv from "dotenv";
 dotenv.config();
 
+const mongoosePassword = process.env.Mongoose_Password;
 const JWT_SECRET = process.env.JWT_SECRET;
 const app = express();
 const port = process.env.PORT || 3000;
 
-async function ConnectDb(){
+async function ConnectDb(mongoosePassword){
     try {
         await mongoose.connect(process.env.Mongoose_Password);
         console.log("connected to server!");
@@ -23,6 +24,12 @@ ConnectDb();
 
 app.use(express.json());
 
+app.get("/", (req, res)=>{
+    res.json({
+        x:"hi"
+    })
+})
+
 app.post("/api/login",async (req, res)=>{
     const username = req.body.username;
     const password = req.body.password;
@@ -33,11 +40,7 @@ app.post("/api/login",async (req, res)=>{
             "password":password,
         })
     } catch(err){
-        console.log(err);
-        res.json({
-            token : null,
-            message : "Slow connection or error connecting to database",
-        })
+        // console.log(err);
     }
     if (admin!=null){
         const token = jwt.sign({username:username}, JWT_SECRET);
@@ -62,9 +65,6 @@ app.get("/api/coordinators", async (req, res)=>{
     } catch(err){
         error = true;
         // console.log(err);
-        res.json({
-            message:"notdone"
-        })
     }
     if (!error && data!=null){
         res.json({
@@ -90,9 +90,6 @@ app.post("/api/coordinators/add",async (req, res)=>{
     } catch(err){
         error = true;
         // console.log(err);
-        res.json({
-            message:"notdone"
-        })
     }
     if (!error && newCoordinator!=null){
         res.json({
@@ -124,9 +121,6 @@ app.post("/api/coordinators/update",async (req, res)=>{
     } catch(err){
         error = true;
         // console.log(err);
-        res.json({
-            message:"notdone"
-        })
     }
     if (!error && user!=null){
         res.json({
@@ -151,9 +145,6 @@ app.post("/api/coordinators/delete",async (req, res)=>{
     } catch(err){
         error = true;
         // console.log(err);
-        res.json({
-            message:"notdone"
-        })
     }
     if (!error && user!=null){
         res.json({
@@ -174,9 +165,6 @@ app.get("/api/events", async (req, res)=>{
     } catch(err){
         error = true;
         // console.log(err);
-        res.json({
-            message:"notdone"
-        })
     }
     if (!error && data!=null){
         res.json({
@@ -192,7 +180,7 @@ app.get("/api/events", async (req, res)=>{
 app.post("/api/events/add", async(req, res)=>{
     const poster = req.body.poster;
     const eventTitle = req.body.title;
-    const eventDate = req.body.date.toString().substring(0,4);
+    const eventDate = req.body.date;
     const aboutEvent = req.body.about;
     let error = false;
     let newEvent = null;
@@ -202,9 +190,6 @@ app.post("/api/events/add", async(req, res)=>{
     } catch(err){
         error = true;
         // console.log(err);
-        res.json({
-            message:"notdone"
-        })
     }
     if (!error && newEvent!=null){
         res.json({
@@ -236,9 +221,6 @@ app.post("/api/events/update",async (req, res)=>{
     } catch(err){
         error = true;
         // console.log(err);
-        res.json({
-            message:"notdone"
-        })
     }
     if (!error && user!=null){
         res.json({
@@ -263,9 +245,6 @@ app.post("/api/events/delete",async (req, res)=>{
     } catch(err){
         error = true;
         // console.log(err);
-        res.json({
-            message:"notdone"
-        })
     }
     if (!error && user!=null){
         res.json({
@@ -288,9 +267,6 @@ app.get("/api/members", async (req, res)=>{
     } catch(err){
         error = true;
         // console.log(err);
-        res.json({
-            message:"notdone"
-        })
     }
     if (!error && data!=null){
         res.json({
@@ -317,9 +293,6 @@ app.post("/api/members/add", async(req, res)=>{
     } catch(err){
         error = true;
         // console.log(err);
-        res.json({
-            message:"notdone"
-        })
     }
     if (!error && newEvent!=null){
         res.json({
@@ -351,9 +324,6 @@ app.post("/api/events/update",async (req, res)=>{
     } catch(err){
         error = true;
         // console.log(err);
-        res.json({
-            message:"notdone"
-        })
     }
     if (!error && user!=null){
         res.json({
@@ -379,10 +349,6 @@ app.post("/api/events/delete",async (req, res)=>{
         })
     } catch(err){
         error = true;
-        // console.log(err);
-        res.json({
-            message:"notdone"
-        })
     }
     if (!error && user!=null){
         res.json({
@@ -395,7 +361,32 @@ app.post("/api/events/delete",async (req, res)=>{
     }
 })
 
+app.post("/api/contact", async (req, res)=>{
+    const Email = req.body.email;
+    const Username = req.body.username;
+    const Message = req.body.message;
+    let error = false;
+    let newMessage = null;
+    try{
+        newMessage = new ContactModel({Email:Email, Username: Username, Message: Message});
+        await newMessage.save();
+    } catch(err){
+        error = true;
+        // console.log(err);
+    }
+    if (!error && newMessage!=null){
+        res.json({
+            message:"done"
+        })
+    } else{
+        res.json({
+            message:"notdone"
+        })
+    } 
+});
 
 app.listen(3000, ()=>{
     console.log("Server is up, guess what else is!")
 })
+
+export default app;

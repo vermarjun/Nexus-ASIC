@@ -25,17 +25,25 @@ const EventSchema = new Schema({
     poster: String,
     eventTitle: String,
     aboutEvent: String,
-    eventDate: Number,
+    eventDate: String,
+})
+
+const ContactSchema = new Schema({
+    Email : String,
+    Username : String,
+    Message : String,
 })
 
 const MemberModel = mongoose.model("members", MemberSchema);
 const CoordinatorModel = mongoose.model("coordinators", CoordinatorSchema);
 const EventModel = mongoose.model("events", EventSchema);
 const AdminModel = mongoose.model("admins", AdminSchema);
+const ContactModel = mongoose.model("contact", ContactSchema);
 
 export {
     MemberModel,
     EventModel,
     AdminModel,
-    CoordinatorModel
+    CoordinatorModel,
+    ContactModel,
 }
