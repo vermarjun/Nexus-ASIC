@@ -37,7 +37,7 @@ function Navbar({setTab, currentTab}){
                     <img src={handShakeLogo} alt="" className='h-16 sm:m-5 m-1'/>
                 </button>
             </div>
-            <div className={`flex sm:w-4/6 w-full justify-center items-center sm:space-x-14 space-x-6 font-sans sm:font-semibold sm:text-xl text-lg`}>
+            <div className={`flex sm:w-4/6 w-full justify-center items-center sm:space-x-14 space-x-6 font-sans sm:font-semibold sm:text-2xl text-lg`}>
                 <motion.button onClick={EventsTab} onHoverStart={()=>Event(true)} onHoverEnd={()=>Event(false) } className={`${(currentTab == "events")?"text-blue-400":"text-white"}`}>
                     <p className="">Events</p>
                     <div className={`border-t-4 border-blue-400 rounded-full ${hoverEvent?"w-full":"w-0"} transition-all ease-in-out duration-200`}></div>

@@ -6,14 +6,14 @@ function Teachers(props){
                 <div>
                     <img src={props.pfp} alt="" className="sm:w-32 w-40 rounded-lg"/>
                     <div className="my-3 flex justify-center items-center">
-                        <p>{props.nameofTeacher}</p>
+                        <p>{props.teacherName}</p>
                     </div>
                 </div>
             </div>
             <div className="w-full min-h-28 ">
                 <div className="sm:ml-7">
                 <div className="mb-2 font-semibold text-2xl">
-                    <p>Teacher Coordinator</p>
+                    <p>{props.position}</p>
                 </div>
                 <div className="text-left">
                     {props.about}

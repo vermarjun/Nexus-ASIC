@@ -1,38 +1,60 @@
 import { useEffect } from "react";
 import Member from "./Member.jsx"
-import Session from "./Session.jsx";
 import Coordinator from "./Coordinator.jsx";
-
-const members = [
-  {
-    pfp: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png",
-    memberName: "Arjun Verma",
-    branch: "Information Technology",
-    about: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, quisquam ratione! Nostrum voluptatum enim provident quaerat totam, voluptate ipsum non exercitationem minima harum velit omnis repudiandae consectetur ducimus nesciunt quis?"
-  },
-  {
-    pfp: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png",
-    memberName: "Arjun Verma",
-    branch: "Information Technology",
-    about: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, quisquam ratione! Nostrum voluptatum enim provident quaerat totam, voluptate ipsum non exercitationem minima harum velit omnis repudiandae consectetur ducimus nesciunt quis?"
-  },
-  {
-    pfp: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png",
-    memberName: "Arjun Verma",
-    branch: "Information Technology",
-    about: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, quisquam ratione! Nostrum voluptatum enim provident quaerat totam, voluptate ipsum non exercitationem minima harum velit omnis repudiandae consectetur ducimus nesciunt quis?"
-  }
-]
+import { useState } from "react";
+import axios from "axios"
 
 function Team(){
+  const [fetchYear, setFetchYear] = useState(2024);
+  const [members, setMembers] = useState([]);
+  async function fetchMembersData(fetchYear){
+    const response = await axios.get('/api/members',{
+      params:{
+        year: fetchYear
+      }
+    });
+    setMembers(response.data.data);
+  }
+  // on mount
+  useEffect(()=>{
+    fetchMembersData(fetchYear);        
+  },[])
+  // when ever year changes in dropdown
+  useEffect(()=>{
+    fetchMembersData(fetchYear);        
+  },[fetchYear])
+  function handelSelect(event){
+      setFetchYear(2025-event.target.value);
+  }
+  const dropDownOptions = [
+    {label:"2024", value:1},
+    {label:"2023", value:2},
+    {label:"2022", value:3},
+    {label:"2021", value:4},
+    {label:"2020", value:5},
+    {label:"2019", value:6},
+    {label:"2018", value:7},
+  ]
   return (
     <div className='flex justify-center items-end w-full z-10 text-white absolute bottom-0 h-4/5 sm:top-auto overflow-y-scroll'>
       <div className="h-full w-5/6 rounded-lg font-sans font-extralight from-neutral-400">
         <Coordinator/>
-        <Session/>
+        {/* <Session/> */}
+        <div className="h-16 rounded-3xl bg-neutral-950 my-5 flex justify-start items-center">
+          <div className="w-2/3 text-blue-400 ml-3 sm:ml-4">
+              <p className="text-xl sm:text-2xl font-medium">Nexus Members</p>
+          </div>
+          <div className="w-1/3 sm:space-x-8 flex justify-end">
+            <select name="" id="" className="bg-blue-400 text-neutral-950 rounded-full mr-3 p-2" onChange={handelSelect}>
+              {dropDownOptions.map((option)=>{
+                return <option className="" value={option.value}>{option.label}</option>
+              })}
+            </select>
+          </div>
+        </div>
         {
-          members.map((e)=>{
-            return <Member memberName = {e.memberName} branch = {e.branch} about = {e.about} pfp={e.pfp}/>
+          members.map((val)=>{
+            return <Member pfp = {val.pfp} branch = {val.branch} about = {val.about} memberName = {val.memberName}/>
           })
         }
       </div>
