@@ -11,10 +11,8 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors({
-    origin: "https://nexus-asic.vercel.app/",
-    credentials : true
-}))
+app.use(cors())
+app.use(express.json());
 
 async function ConnectDb(){
     try {
@@ -28,11 +26,10 @@ async function ConnectDb(){
 }
 ConnectDb();
 
-app.use(express.json());
 
 app.get("/", (req, res)=>{
     res.json({
-        message:"hello world"
+        message:"Workin Fine"
     })
 })
 
