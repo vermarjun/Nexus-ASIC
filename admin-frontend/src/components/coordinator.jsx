@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { API_URL } from "../App";
 
 function DisplayCoordinator(props){
     return (
         <>
         <div className="my-5 bg-neutral-950 p-5 rounded-xl w-full">
-            <div className="font-thin text-lg">
+            <div className="font-thin text-lg space-y-5">
                 <p>Profile Pic Link: {props.pfp}</p>
                 <p>Name: {props.name}</p>
                 <p>About: {props.about}</p>
@@ -22,7 +23,7 @@ function Coordinator(){
     const [dbUpdated, updateDb] = useState(1);
     let [coordinators, setcoordinators] = useState([]);
     async function fetchCoordinatorsData(){
-        const response = await axios.get("/api/coordinators");
+        const response = await axios.get(`${API_URL}/api/coordinators`);
         setcoordinators(response.data.data);
     }
     useEffect(()=>{
@@ -192,7 +193,7 @@ function Coordinator(){
             </div>
         </div>
         <div className="flex justify-start sm:justify-center w-full absolute text-white h-3/6 sm:h-80 bottom-0 overflow-y-scroll">
-            <div className="ml-7 mt-5 sm:ml-0 sm:w-3/6 w-full">
+            <div className="ml-8 mt-5 sm:ml-0 sm:w-3/6 w-5/6 break-words">
                 {coordinators.map((val)=>{
                     return <DisplayCoordinator name={val.teacherName} about={val.about} pfp={val.pfp} position={val.position}/>
                 })}

@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { API_URL } from "../App";
 
 function DisplayEvents(props){
     return (
         <>
         <div className="my-5 bg-neutral-950 p-5 rounded-xl">
-            <div className="font-thin text-lg">
+            <div className="font-thin text-lg space-y-5">
                 <p>Poster: {props.poster}</p>
                 <p>Title: {props.title}</p>
                 <p>Date: {props.date}</p>
@@ -23,14 +24,14 @@ function Events(){
     // To manage clicks on btns like update add delete
     const [dbUpdated, updateDb] = useState(1);
     // array where i put all my events as fetched from backend
-    let [events, setEvents] = useState([]);
+    const [events, setEvents] = useState([]);
     // This one is responsible to diplay success or error message in backend request
     const [successMessage, setSuccessmessage] = useState("none");
     // This one is responsible to redirect from add to update to delete page
     const [ToDo, setToDo] = useState("add");
     // function to make backend request to display all added events on bottom of the page
     async function fetchEventsData(){
-        const response = await axios.get("/api/events");
+        const response = await axios.get(`${API_URL}/api/events`);
         setEvents(response.data.data);
         // console.log(response.data.data)
     }
@@ -200,8 +201,8 @@ function Events(){
                 </div>
             </div>
         </div>
-        <div className="flex justify-start sm:justify-center w-full absolute text-white h-80 sm:h-80 bottom-0 overflow-y-scroll">
-            <div className="ml-10 sm:ml-0 sm:w-3/6">
+        <div className="flex justify-start sm:justify-center w-full absolute text-white h-80 sm:h-80 bottom-0 overflow-y-scroll break-words">
+            <div className="ml-8 sm:ml-0 sm:w-3/6 w-5/6">
                 {events.map((val)=>{
                     return <DisplayEvents title={val.eventTitle} about={val.aboutEvent} poster={val.poster} date={val.eventDate}/>
                 })}

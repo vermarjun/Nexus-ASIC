@@ -1,6 +1,8 @@
 import { useRef, useState } from "react"
 import axios from "axios"
 
+import { API_URL } from "../App";
+
 function Sign(props){
     const [valid, setValid] = useState('x');
     const Username = useRef("");
@@ -9,7 +11,7 @@ function Sign(props){
         if (Username.current.value == "") Username.current.focus();
         else if (Password.current.value == "") Password.current.focus();
         else {
-            const response = await axios.post("/api/login",{
+            const response = await axios.post(`${API_URL}/api/login`,{
                 "username": Username.current.value,
                 "password": Password.current.value
             });

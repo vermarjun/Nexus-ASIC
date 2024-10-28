@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { API_URL } from "../App";
 
 function DisplayMembers(props){
     return (
         <>
         <div className="mb-5 bg-neutral-950 p-5 rounded-xl">
-            <div className="font-thin text-lg">
+            <div className="font-thin text-lg space-y-5">
                 <p>Profile Picture: {props.pfp}</p>
                 <p>Name: {props.name}</p>
                 <p>Tenure Year: {props.year}</p>
@@ -37,7 +38,7 @@ function Member(){
     // To manage clicks on btns like update add delete
     const [dbUpdated, updateDb] = useState(1);
     // array where i put all my events as fetched from backend
-    let [members, setMembers] = useState([]);
+    const [members, setMembers] = useState([]);
     // This one is responsible to diplay success or error message in backend request
     const [successMessage, setSuccessmessage] = useState("none");
     // This one is responsible to redirect from add to update to delete page
@@ -45,7 +46,7 @@ function Member(){
     // function to make backend request to display all added events on bottom of the page
     async function fetchMembersData(fetchYear){
         console.log(fetchYear);
-        const response = await axios.get('/api/members',{
+        const response = await axios.get(`${API_URL}/api/members`,{
             params:{
                 year: fetchYear
             }
@@ -232,7 +233,7 @@ function Member(){
             {/* <div> */}
                 {/* dropdown to select year */}
                 <div className="ml-0 w-5/6 sm:w-3/6 flex ">
-                    <div className="w-full overflow-y-scroll">
+                    <div className="w-full overflow-y-scroll break-words">
                         {members.map((val)=>{
                             return <DisplayMembers name={val.memberName} about={val.about} pfp={val.pfp} year={val.year} branch={val.branch}/>
                         })}
