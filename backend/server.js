@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken"
 import { MemberModel, EventModel, AdminModel, CoordinatorModel, ContactModel} from "./db.js"
 import dotenv from "dotenv";
 dotenv.config();
+import cors from "cors"
 
 const mongoosePassword = process.env.Mongoose_Password;
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -15,9 +16,9 @@ app.use(cors({
     credentials : true
 }))
 
-async function ConnectDb(mongoosePassword){
+async function ConnectDb(){
     try {
-        await mongoose.connect(process.env.Mongoose_Password);
+        await mongoose.connect(mongoosePassword);
         console.log("connected to server!");
     }
     catch(error) {
