@@ -10,6 +10,11 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors({
+    origin: "https://nexus-asic.vercel.app/",
+    credentials : true
+}))
+
 async function ConnectDb(mongoosePassword){
     try {
         await mongoose.connect(process.env.Mongoose_Password);
