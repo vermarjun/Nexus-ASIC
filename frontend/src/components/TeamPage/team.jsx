@@ -3,12 +3,13 @@ import Member from "./Member.jsx"
 import Coordinator from "./Coordinator.jsx";
 import { useState } from "react";
 import axios from "axios"
+import { API_URL } from "../../App.jsx";
 
 function Team(){
   const [fetchYear, setFetchYear] = useState(2024);
   const [members, setMembers] = useState([]);
   async function fetchMembersData(fetchYear){
-    const response = await axios.get('/api/members',{
+    const response = await axios.get(`${API_URL}/api/members`,{
       params:{
         year: fetchYear
       }
@@ -46,15 +47,15 @@ function Team(){
           </div>
           <div className="w-1/3 sm:space-x-8 flex justify-end">
             <select name="" id="" className="bg-blue-400 text-neutral-950 rounded-full mr-3 p-2" onChange={handelSelect}>
-              {dropDownOptions.map((option)=>{
-                return <option className="" value={option.value}>{option.label}</option>
+              {dropDownOptions.map((option, index)=>{
+                return <option key={index} className="" value={option.value}>{option.label}</option>
               })}
             </select>
           </div>
         </div>
         {
-          members.map((val)=>{
-            return <Member pfp = {val.pfp} branch = {val.branch} about = {val.about} memberName = {val.memberName}/>
+          members.map((val, index)=>{
+            return <Member key={index} pfp = {val.pfp} branch = {val.branch} about = {val.about} memberName = {val.memberName}/>
           })
         }
       </div>

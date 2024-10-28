@@ -28,8 +28,8 @@ function Navbar({setTab, currentTab}){
     }
     return (
         <>
-        <div className={`z-50 sm:p-0 p-2 top-0 ${currentTab=="about"?"absolute":"absolute"} w-full sm:h-1/6 sm:flex place-content-around `}>
-            <div className='sm:w-1/6 w-full space-x-5 sm:space-x-0 sm:mb-0 mb-4 flex justify-center ' >
+        <div className={`z-50 sm:p-0 p-2 top-0 ${currentTab=="about"?"absolute":"absolute"} w-full sm:h-1/6 sm:flex place-content-around`}>
+            <div className='sm:w-1/6 w-full space-x-5 sm:space-x-0 sm:mb-0 mb-4 flex justify-center' >
                 <button>
                     <img src={ggvLogo} alt="" className='h-16 sm:m-5 m-1'/>          
                 </button>
@@ -67,7 +67,7 @@ function Navbar({setTab, currentTab}){
                 </a>
             </div>
         </div>
-        <div className={`z-50 sm:w-1/6 absolute bottom-14 justify-center w-full space-x-4 items-center sm:hidden ${(currentTab=="home")?"flex":"hidden"}`}>
+        <div className={`z-50 sm:w-1/6 absolute bottom-14 justify-center h-28 w-full space-x-4 items-center sm:hidden ${(currentTab=="home")?"flex":"hidden"}`}>
             <a href='https://www.instagram.com/nexus.asic/' target='_blank'>
                 <img src={instaSvg} className='sm:h-7 h-10' alt="" />
             </a>

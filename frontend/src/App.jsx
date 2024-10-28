@@ -10,6 +10,10 @@ import AOS from "aos"
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 
+// THIS IS THE URL WHERE I WILL MAKE BACKEND REQUESTS:
+// export const API_URL = ""; 
+export const API_URL = "https://nexus-asic-backend.vercel.app"; 
+
 function App() {
   const [currentTab, setTab] = useState("home");
   // console.log(currentTab);

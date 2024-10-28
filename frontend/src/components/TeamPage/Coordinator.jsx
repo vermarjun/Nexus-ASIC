@@ -2,11 +2,12 @@ import { useState } from "react"
 import Teachers from "./teachers.jsx"
 import axios from "axios"
 import { useEffect } from "react";
+import { API_URL } from "../../App.jsx";
 
 function Coordinator(){
     const [data, setData] = useState([]);
     async function fetchData(){
-      const response = await axios.get("/api/coordinators");
+      const response = await axios.get(`${API_URL}/api/coordinators`);
       setData(response.data.data);
     }
     useEffect(()=>{
@@ -24,8 +25,8 @@ function Coordinator(){
         </div>
         <div className="border-2 my-5 rounded-full border-blue-400"></div>
         {
-          data.map((value)=>{
-          return <Teachers pfp={value.pfp} teacherName={value.teacherName} about={value.about} position={value.position}/>
+          data.map((value, index)=>{
+          return <Teachers key={index} pfp={value.pfp} teacherName={value.teacherName} about={value.about} position={value.position}/>
           })
         }
       </div>

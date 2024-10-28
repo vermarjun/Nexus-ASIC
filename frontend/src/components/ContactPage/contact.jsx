@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import axios from "axios";
 import { useState } from "react";
+import { API_URL } from "../../App";
 
 function Contact(){
     const [done, setDone] = useState("none");
@@ -12,7 +13,7 @@ function Contact(){
       else if (username.current.value == "")username.current.focus();
       else if (message.current.value == "")message.current.focus();
       else {
-        const response = await axios.post("/api/contact",{
+        const response = await axios.post(`${API_URL}/api/contact`,{
           email:email.current.value,
           username:username.current.value,
           message:message.current.value
