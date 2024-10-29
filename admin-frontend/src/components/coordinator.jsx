@@ -194,8 +194,8 @@ function Coordinator(){
         </div>
         <div className="flex justify-start sm:justify-center w-full absolute text-white h-3/6 sm:h-80 bottom-0 overflow-y-scroll">
             <div className="ml-8 mt-5 sm:ml-0 sm:w-3/6 w-5/6 break-words">
-                {coordinators.map((val)=>{
-                    return <DisplayCoordinator name={val.teacherName} about={val.about} pfp={val.pfp} position={val.position}/>
+                {coordinators.map((val, index)=>{
+                    return <DisplayCoordinator key={index} name={val.teacherName} about={val.about} pfp={val.pfp} position={val.position}/>
                 })}
             </div>
         </div>

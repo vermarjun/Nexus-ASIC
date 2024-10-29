@@ -4,6 +4,7 @@ import axios from "axios"
 import { API_URL } from "../App";
 
 function Sign(props){
+    const [loading, setLoading] = useState(false);
     const [valid, setValid] = useState('x');
     const Username = useRef("");
     const Password = useRef("");
@@ -11,16 +12,14 @@ function Sign(props){
         if (Username.current.value == "") Username.current.focus();
         else if (Password.current.value == "") Password.current.focus();
         else {
+            setLoading(true);
             const response = await axios.post(`${API_URL}/api/login`,{
                 "username": Username.current.value,
                 "password": Password.current.value
             });
-            ((response.data.token)==null)?setValid("invalid"):setValid("valid");
-            if (valid == "valid"){
-                // save token to local storage and redirect to dash board!  
-                // localStorage.setItem("token", response.data.token);
-                props.setLoggedIn(true);
-            }
+            // console.log(response);
+            setLoading(false);
+            ((response.data.token)=="")?setValid("invalid"):props.setLoggedIn(true);
         }
     }
     return(
@@ -41,8 +40,9 @@ function Sign(props){
                             <input className="bg-neutral-950 w-64 sm:w-80 mt-10 rounded-full h-12" type="password" placeholder="  Password" ref={Password}/>
                         </div>
                         <div className="flex justify-center items-center">
-                            <button className="w-56 sm:hover:bg-blue-200 sm:w-40 mt-10 rounded-full h-12 bg-blue-400 text-black font-medium text-lg" onClick={verify}>Login</button>
+                            <button disabled={loading} className={`${loading?"animate-pulse":""} w-56 sm:hover:bg-blue-200 sm:w-40 mt-10 rounded-full h-12 bg-blue-400 text-black font-medium text-lg ${loading?"bg-blue-500":""}`} onClick={verify}>Login</button>
                         </div>
+                        <p className={`${(loading)?" mt-4 text-center text-blue-400":"hidden"}`}>Loading..</p>
                     </div>
                 </div>
                 <div className={`text-red-600 flex justify-center items-center mt-5 ${(valid == "invalid")?"":"hidden"}`}>

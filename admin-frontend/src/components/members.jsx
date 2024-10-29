@@ -45,7 +45,7 @@ function Member(){
     const [ToDo, setToDo] = useState("add");
     // function to make backend request to display all added events on bottom of the page
     async function fetchMembersData(fetchYear){
-        console.log(fetchYear);
+        // console.log(fetchYear);
         const response = await axios.get(`${API_URL}/api/members`,{
             params:{
                 year: fetchYear
@@ -234,14 +234,14 @@ function Member(){
                 {/* dropdown to select year */}
                 <div className="ml-0 w-5/6 sm:w-3/6 flex ">
                     <div className="w-full overflow-y-scroll break-words">
-                        {members.map((val)=>{
-                            return <DisplayMembers name={val.memberName} about={val.about} pfp={val.pfp} year={val.year} branch={val.branch}/>
+                        {members.map((val, index)=>{
+                            return <DisplayMembers key={index} name={val.memberName} about={val.about} pfp={val.pfp} year={val.year} branch={val.branch}/>
                         })}
                     </div>
                     <div className="">
                         <select className="text-black bg-blue-400 border-none z-50 h-10 rounded-full p-1 relative top-0" name="" id="" onChange={handelSelect}>
-                                {dropDownOptions.map((option)=>{
-                                    return <option className="" value={option.value}>{option.label}</option>
+                                {dropDownOptions.map((option, index)=>{
+                                    return <option className="" key={index} value={option.value}>{option.label}</option>
                                 })}
                         </select>
                     </div>

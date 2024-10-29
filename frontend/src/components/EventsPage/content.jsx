@@ -1,6 +1,6 @@
 function Content(props){
     return (
-        <div className="sm:flex mb-5 bg-neutral-950 sm:p-5 p-5 rounded-lg">
+        <div className="sm:flex mb-5 sm:relative sm:top-32 bg-neutral-950 sm:p-5 p-5 rounded-lg">
             <img className="sm:w-1/5 rounded-xl" src={props.poster} alt="" />
             <div className="w-full sm:ml-5 sm:mt-0 mt-5 ">
                 <div className="w-full flex">

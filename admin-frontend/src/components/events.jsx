@@ -203,8 +203,8 @@ function Events(){
         </div>
         <div className="flex justify-start sm:justify-center w-full absolute text-white h-80 sm:h-80 bottom-0 overflow-y-scroll break-words">
             <div className="ml-8 sm:ml-0 sm:w-3/6 w-5/6">
-                {events.map((val)=>{
-                    return <DisplayEvents title={val.eventTitle} about={val.aboutEvent} poster={val.poster} date={val.eventDate}/>
+                {events.map((val, index)=>{
+                    return <DisplayEvents key={index} title={val.eventTitle} about={val.aboutEvent} poster={val.poster} date={val.eventDate}/>
                 })}
             </div>
         </div>
